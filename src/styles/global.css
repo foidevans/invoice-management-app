@@ -1,0 +1,351 @@
+@import url('https://fonts.google.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss/preflight";
+
+@tailwind utilities;
+
+
+/* ─── LIGHT MODE TOKENS ─────────────────────────────────── */
+:root {
+  /* Brand */
+  --color-primary:        #7C5DFA;
+  --color-primary-hover:  #9277FF;
+
+  /* Backgrounds */
+  --color-bg:             #F8F8FB;
+  --color-card:           #FFFFFF;
+  --color-sidebar:        #373B53;
+
+  /* Text */
+  --color-text-primary:   #0C0E16;
+  --color-text-secondary: #888EB0;
+  --color-text-muted:     #7E88C3;
+  --color-heading:        #252945;
+
+  /* Borders & inputs */
+  --color-border:         #DFE3FA;
+  --color-input-bg:       #FFFFFF;
+  --color-input-border:   #DFE3FA;
+  --color-input-focus:    #7C5DFA;
+
+  /* Status */
+  --color-paid-text:      #33D69F;
+  --color-paid-bg:        rgba(51, 214, 159, 0.06);
+  --color-pending-text:   #FF8F00;
+  --color-pending-bg:     rgba(255, 143, 0, 0.06);
+  --color-draft-text:     #373B53;
+  --color-draft-bg:       rgba(55, 59, 83, 0.06);
+
+  /* Danger */
+  --color-danger:         #EC5757;
+  --color-danger-hover:   #FF9797;
+
+  /* Invoice detail bottom bar */
+  --color-total-bar-bg:   #373B53;
+  --color-total-bar-text: #FFFFFF;
+
+  /* Misc */
+  --color-overlay:        rgba(0, 0, 0, 0.5);
+  --border-radius-card:   8px;
+  --border-radius-input:  4px;
+  --border-radius-badge:  6px;
+  --sidebar-width:        103px;
+}
+
+/* ─── DARK MODE TOKENS ──────────────────────────────────── */
+.dark {
+  /* Backgrounds */
+  --color-bg:             #141625;
+  --color-card:           #1E2139;
+  --color-sidebar:        #1E2139;
+
+  /* Text */
+  --color-text-primary:   #FFFFFF;
+  --color-text-secondary: #DFE3FA;
+  --color-text-muted:     #888EB0;
+  --color-heading:        #FFFFFF;
+
+  /* Borders & inputs */
+  --color-border:         #252945;
+  --color-input-bg:       #1E2139;
+  --color-input-border:   #252945;
+
+  /* Status (same colors, different bg opacity) */
+  --color-draft-text:     #DFE3FA;
+  --color-draft-bg:       rgba(223, 227, 250, 0.06);
+
+  /* Invoice detail bottom bar */
+  --color-total-bar-bg:   #0C0E16;
+}
+
+/* ─── BASE STYLES ───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}
+
+/* ─── TYPOGRAPHY SCALE ──────────────────────────────────── */
+
+
+.text-heading-l {
+  font-size: 2rem;        /* 32px */
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.text-heading-m {
+  font-size: 1.5rem;      /* 24px */
+  font-weight: 700;
+  letter-spacing: -0.75px;
+}
+
+.text-heading-s {
+  font-size: 0.9375rem;   /* 15px */
+  font-weight: 700;
+  letter-spacing: -0.25px;
+}
+
+.text-heading-xs {
+  font-size: 0.75rem;     /* 12px */
+  font-weight: 700;
+  letter-spacing: -0.25px;
+}
+
+.text-body {
+  font-size: 0.8125rem;   /* 13px */
+  font-weight: 500;
+  line-height: 1.85;
+  letter-spacing: -0.1px;
+}
+
+.text-body-s {
+  font-size: 0.6875rem;   /* 11px */
+  font-weight: 500;
+  letter-spacing: -0.23px;
+}
+
+/* ─── REUSABLE COMPONENT CLASSES ────────────────────────── */
+
+.card {
+  background-color: var(--color-card);
+  border-radius: var(--border-radius-card);
+  box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.1);
+}
+
+.input {
+  width: 100%;
+  background-color: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--border-radius-input);
+  color: var(--color-text-primary);
+  font-family: 'League Spartan', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  padding: 16px 20px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input:focus {
+  border-color: var(--color-input-focus);
+}
+
+.input.error {
+  border-color: var(--color-danger);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 24px;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 16px 24px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  color: #FFFFFF;
+}
+.btn-danger:hover {
+  background-color: var(--color-danger-hover);
+}
+
+.btn-secondary {
+  background-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+.btn-secondary:hover {
+  background-color: var(--color-bg);
+}
+
+.btn-dark {
+  background-color: #373B53;
+  color: #888EB0;
+}
+.btn-dark:hover {
+  background-color: #0C0E16;
+}
+
+/* Dark mode btn-secondary override */
+.dark .btn-secondary {
+  background-color: #252945;
+  color: #DFE3FA;
+}
+.dark .btn-secondary:hover {
+  background-color: #252945;
+}
+
+/* ─── STATUS BADGE ──────────────────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--border-radius-badge);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.badge::before {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.badge-paid {
+  color: var(--color-paid-text);
+  background-color: var(--color-paid-bg);
+}
+
+.badge-pending {
+  color: var(--color-pending-text);
+  background-color: var(--color-pending-bg);
+}
+
+.badge-draft {
+  color: var(--color-draft-text);
+  background-color: var(--color-draft-bg);
+}
+
+/* ─── LAYOUT ────────────────────────────────────────────── */
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  padding: 72px 48px;
+  max-width: 780px;
+  width: 100%;
+}
+
+/* ─── FORM PANEL (slide-in) ─────────────────────────────── */
+
+.form-panel {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  height: 100vh;
+  width: 616px;
+  background-color: var(--color-card);
+  z-index: 100;
+  overflow-y: auto;
+  padding: 56px 56px 32px;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.form-panel.open {
+  transform: translateX(0);
+}
+
+.form-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-overlay);
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.form-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ─── SCROLLBAR ─────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+/* ─── RESPONSIVE ────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 32px 24px;
+    padding-top: 80px; /* space for top nav on mobile */
+  }
+
+  .form-panel {
+    left: 0;
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .main-content {
+    padding: 56px 48px;
+  }
+}
