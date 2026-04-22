@@ -1,12 +1,26 @@
-import React from 'react'
+import { Outlet } from "react-router-dom";
+import Sidebar from "./components/layout/Sidebar";
 
-const App = () => {
+export default function App() {
   return (
-    <>
-      <h1>Hello world, i am gonna create an invoice management app in 4 days time</h1>
-      <h2>let's fucking goooooooooooo</h2>
-    </>
-  )
+    <div className="min-h-screen bg-[var(--color-bg)] overflow-hidden">
+      <Sidebar />
+      <main
+        style={{
+          marginLeft: "var(--sidebar-width)",
+          marginTop: "var(--topnav-height)",
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          padding: "48px 24px",
+          width: "calc(100% - var(--sidebar-width))",
+        }}
+      >
+        <div style={{ width: "100%", maxWidth: "780px" }}>
+          <Outlet />
+        </div>
+      </main>
+    </div>
+  );
 }
-
-export default App
