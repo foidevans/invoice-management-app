@@ -50,238 +50,212 @@ export default function InvoiceDetailPage() {
     markAsPaid(invoice.id)
   }
 
-  return (
-    <div className="w-full">
-      <button
-        onClick={() => navigate('/')}
-        className="
-          flex items-center gap-4 mb-8
-          font-bold text-[0.9375rem] text-[var(--color-text-primary)]
-          hover:text-[var(--color-text-secondary)]
-          bg-transparent border-none cursor-pointer
-          transition-colors duration-200
-        "
-      >
-        <svg width="7" height="10" viewBox="0 0 7 10" fill="none">
-          <path
-            d="M6 1L2 5l4 4"
-            stroke="#7C5DFA"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        Go back
-      </button>
 
-      <div className="
-        bg-[var(--color-card)] rounded-lg px-8 py-6 mb-4
-        flex items-center justify-between
-        shadow-[0px_10px_10px_-10px_rgba(72,84,159,0.1)]
-      ">
-        <div className="flex items-center gap-4">
-          <span className="text-[0.8125rem] text-[var(--color-text-secondary)]">
-            Status
-          </span>
-          <StatusBadge status={invoice.status} />
-        </div>
+return (
+  <div className="w-full">
+    {/* GO BACK */}
+    <button
+      onClick={() => navigate('/')}
+      style={{ marginBottom: '32px' }}
+      className="flex items-center gap-4 font-bold text-[0.9375rem] text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] bg-transparent border-none cursor-pointer transition-colors duration-200"
+    >
+      <svg width="7" height="10" viewBox="0 0 7 10" fill="none">
+        <path d="M6 1L2 5l4 4" stroke="#7C5DFA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+      Go back
+    </button>
 
-      
-        <div className="hidden md:flex items-center gap-3">
-          {invoice.status !== 'paid' && (
-            <button
-              onClick={() => setIsFormOpen(true)}
-              className="btn btn-secondary"
-            >
-              Edit
-            </button>
-          )}
-          <button
-            onClick={() => setShowDeleteModal(true)}
-            className="btn btn-danger"
-          >
-            Delete
-          </button>
-          {invoice.status === 'pending' && (
-            <button
-              onClick={handleMarkAsPaid}
-              className="btn btn-primary"
-            >
-              Mark as Paid
-            </button>
-          )}
-        </div>
+    {/* STATUS BAR */}
+    <div
+      style={{
+        backgroundColor: 'var(--color-card)',
+        borderRadius: '8px',
+        padding: '24px 32px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: '24px',
+        boxShadow: '0px 10px 10px -10px rgba(72,84,159,0.1)',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)' }}>
+          Status
+        </span>
+        <StatusBadge status={invoice.status} />
       </div>
 
-      <div className="
-        bg-[var(--color-card)] rounded-lg p-8 md:p-12
-        shadow-[0px_10px_10px_-10px_rgba(72,84,159,0.1)]
-      ">
-        <div className="flex flex-col md:flex-row md:justify-between mb-8 md:mb-16">
-          <div>
-            <h2 className="font-bold text-[0.9375rem] text-[var(--color-text-primary)] mb-1">
-              <span className="text-[var(--color-text-muted)]">#</span>
-              {invoice.id}
-            </h2>
-            <p className="text-[0.8125rem] text-[var(--color-text-secondary)]">
-              {invoice.description}
-            </p>
-          </div>
-
-          <div className="text-[0.8125rem] text-[var(--color-text-secondary)] mt-8 md:mt-0 md:text-right">
-            <p>{invoice.senderAddress.street}</p>
-            <p>{invoice.senderAddress.city}</p>
-            <p>{invoice.senderAddress.postCode}</p>
-            <p>{invoice.senderAddress.country}</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-10">
-          <div className="flex flex-col gap-8">
-            <div>
-              <p className="text-[0.8125rem] text-[var(--color-text-secondary)] mb-2">
-                Invoice Date
-              </p>
-              <p className="font-bold text-[0.9375rem] text-[var(--color-text-primary)]">
-                {formattedDate(invoice.createdAt)}
-              </p>
-            </div>
-            <div>
-              <p className="text-[0.8125rem] text-[var(--color-text-secondary)] mb-2">
-                Payment Due
-              </p>
-              <p className="font-bold text-[0.9375rem] text-[var(--color-text-primary)]">
-                {formattedDate(invoice.paymentDue)}
-              </p>
-            </div>
-          </div>
-
-    
-          <div>
-            <p className="text-[0.8125rem] text-[var(--color-text-secondary)] mb-2">
-              Bill To
-            </p>
-            <p className="font-bold text-[0.9375rem] text-[var(--color-text-primary)] mb-2">
-              {invoice.clientName}
-            </p>
-            <div className="text-[0.8125rem] text-[var(--color-text-secondary)]">
-              <p>{invoice.clientAddress.street}</p>
-              <p>{invoice.clientAddress.city}</p>
-              <p>{invoice.clientAddress.postCode}</p>
-              <p>{invoice.clientAddress.country}</p>
-            </div>
-          </div>
-
-          <div>
-            <p className="text-[0.8125rem] text-[var(--color-text-secondary)] mb-2">
-              Sent To
-            </p>
-            <p className="font-bold text-[0.9375rem] text-[var(--color-text-primary)]">
-              {invoice.clientEmail}
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-[var(--color-bg)] rounded-lg overflow-hidden">
-          <div className="hidden md:grid grid-cols-[1fr_80px_120px_120px] gap-4 px-8 py-4">
-            <span className="text-[0.8125rem] text-[var(--color-text-secondary)]">Item Name</span>
-            <span className="text-[0.8125rem] text-[var(--color-text-secondary)] text-center">QTY.</span>
-            <span className="text-[0.8125rem] text-[var(--color-text-secondary)] text-right">Price</span>
-            <span className="text-[0.8125rem] text-[var(--color-text-secondary)] text-right">Total</span>
-          </div>
-
-          <div className="px-8 py-4 flex flex-col gap-6">
-            {invoice.items.map(item => (
-              <div
-                key={item.id}
-                className="grid grid-cols-[1fr_auto] md:grid-cols-[1fr_80px_120px_120px] gap-4 items-center"
-              >
-                <span className="font-bold text-[0.9375rem] text-[var(--color-text-primary)]">
-                  {item.name}
-                </span>
-
-                <div className="md:hidden text-right">
-                  <span className="text-[0.8125rem] text-[var(--color-text-secondary)]">
-                    {item.quantity} x {formattedCurrency(item.price)}
-                  </span>
-                  <p className="font-bold text-[0.9375rem] text-[var(--color-text-primary)]">
-                    {formattedCurrency(item.total)}
-                  </p>
-                </div>
-
-                
-                <span className="hidden md:block text-[0.8125rem] text-[var(--color-text-secondary)] text-center">
-                  {item.quantity}
-                </span>
-                <span className="hidden md:block text-[0.8125rem] text-[var(--color-text-secondary)] text-right">
-                  {formattedCurrency(item.price)}
-                </span>
-                <span className="hidden md:block font-bold text-[0.9375rem] text-[var(--color-text-primary)] text-right">
-                  {formattedCurrency(item.total)}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <div className="
-            bg-[var(--color-total-bar-bg)]
-            px-8 py-6 rounded-b-lg
-            flex items-center justify-between
-          ">
-            <span className="text-[0.8125rem] text-white">Amount Due</span>
-            <span className="font-bold text-[1.5rem] text-white">
-              {formattedCurrency(invoice.total)}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div className="
-        md:hidden fixed bottom-0 left-0 right-0
-        bg-[var(--color-card)] px-6 py-5
-        flex items-center justify-end gap-3
-        shadow-[0px_-10px_10px_-10px_rgba(72,84,159,0.1)]
-      ">
+      <div className="hidden md:flex items-center gap-3">
         {invoice.status !== 'paid' && (
-          <button
-            onClick={() => setIsFormOpen(true)}
-            className="btn btn-secondary"
-          >
+          <button onClick={() => setIsFormOpen(true)} className="btn btn-secondary">
             Edit
           </button>
         )}
-        <button
-          onClick={() => setShowDeleteModal(true)}
-          className="btn btn-danger"
-        >
+        <button onClick={() => setShowDeleteModal(true)} className="btn btn-danger">
           Delete
         </button>
         {invoice.status === 'pending' && (
-          <button
-            onClick={handleMarkAsPaid}
-            className="btn btn-primary"
-          >
+          <button onClick={handleMarkAsPaid} className="btn btn-primary">
             Mark as Paid
           </button>
         )}
       </div>
-
-      <DeleteModal
-        isOpen={showDeleteModal}
-        invoiceId={invoice.id}
-        onConfirm={handleDelete}
-        onCancel={() => setShowDeleteModal(false)}
-      />
-
-
-
-
-<InvoiceForm
-  isOpen={isFormOpen}
-  onClose={() => setIsFormOpen(false)}
-  invoice={invoice}
-/>
-
     </div>
-  )
+
+    {/* INVOICE BODY */}
+    <div
+      style={{
+        backgroundColor: 'var(--color-card)',
+        borderRadius: '8px',
+        padding: '48px',
+        boxShadow: '0px 10px 10px -10px rgba(72,84,159,0.1)',
+      }}
+    >
+      {/* Top row */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '48px' }}>
+        <div>
+          <h2 style={{ fontWeight: 700, fontSize: '0.9375rem', color: 'var(--color-text-primary)', marginBottom: '4px' }}>
+            <span style={{ color: 'var(--color-text-muted)' }}>#</span>{invoice.id}
+          </h2>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)' }}>
+            {invoice.description}
+          </p>
+        </div>
+        <div style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)', textAlign: 'right' }}>
+          <p>{invoice.senderAddress.street}</p>
+          <p>{invoice.senderAddress.city}</p>
+          <p>{invoice.senderAddress.postCode}</p>
+          <p>{invoice.senderAddress.country}</p>
+        </div>
+      </div>
+
+      {/* Middle row */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '32px', marginBottom: '40px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+          <div>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)', marginBottom: '8px' }}>Invoice Date</p>
+            <p style={{ fontWeight: 700, fontSize: '0.9375rem', color: 'var(--color-text-primary)' }}>
+              {formattedDate(invoice.createdAt)}
+            </p>
+          </div>
+          <div>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)', marginBottom: '8px' }}>Payment Due</p>
+            <p style={{ fontWeight: 700, fontSize: '0.9375rem', color: 'var(--color-text-primary)' }}>
+              {formattedDate(invoice.paymentDue)}
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)', marginBottom: '8px' }}>Bill To</p>
+          <p style={{ fontWeight: 700, fontSize: '0.9375rem', color: 'var(--color-text-primary)', marginBottom: '8px' }}>
+            {invoice.clientName}
+          </p>
+          <div style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)' }}>
+            <p>{invoice.clientAddress.street}</p>
+            <p>{invoice.clientAddress.city}</p>
+            <p>{invoice.clientAddress.postCode}</p>
+            <p>{invoice.clientAddress.country}</p>
+          </div>
+        </div>
+
+        <div>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)', marginBottom: '8px' }}>Sent To</p>
+          <p style={{ fontWeight: 700, fontSize: '0.9375rem', color: 'var(--color-text-primary) ', wordBreak: 'break-all'}}>
+            {invoice.clientEmail}
+          </p>
+          
+        </div>
+      </div>
+
+      {/* ITEMS TABLE */}
+      <div style={{ borderRadius: '8px', overflow: 'hidden', backgroundColor: 'var(--color-bg)' }}>
+        {/* Header */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 80px 120px 120px',
+          gap: '16px',
+          padding: '16px 32px',
+        }}>
+          <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)' }}>Item Name</span>
+          <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)', textAlign: 'center' }}>QTY.</span>
+          <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)', textAlign: 'right' }}>Price</span>
+          <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)', textAlign: 'right' }}>Total</span>
+        </div>
+
+        {/* Items */}
+        <div style={{ padding: '0 32px 32px' }}>
+          {invoice.items.map(item => (
+            <div
+              key={item.id}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 80px 120px 120px',
+                gap: '16px',
+                alignItems: 'center',
+                marginBottom: '16px',
+              }}
+            >
+              <span style={{ fontWeight: 700, fontSize: '0.9375rem', color: 'var(--color-text-primary)' }}>
+                {item.name}
+              </span>
+              <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)', textAlign: 'center' }}>
+                {item.quantity}
+              </span>
+              <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)', textAlign: 'right' }}>
+                {formattedCurrency(item.price)}
+              </span>
+              <span style={{ fontWeight: 700, fontSize: '0.9375rem', color: 'var(--color-text-primary)', textAlign: 'right' }}>
+                {formattedCurrency(item.total)}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Amount Due */}
+        <div style={{
+          backgroundColor: 'var(--color-total-bar-bg)',
+          padding: '24px 32px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          borderRadius: '0 0 8px 8px',
+        }}>
+          <span style={{ fontSize: '0.8125rem', color: 'white' }}>Amount Due</span>
+          <span style={{ fontWeight: 700, fontSize: '1.5rem', color: 'white' }}>
+            {formattedCurrency(invoice.total)}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    {/* MOBILE ACTION BUTTONS */}
+    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[var(--color-card)] px-6 py-5 flex items-center justify-end gap-3"
+      style={{ boxShadow: '0px -10px 10px -10px rgba(72,84,159,0.1)' }}
+    >
+      {invoice.status !== 'paid' && (
+        <button onClick={() => setIsFormOpen(true)} className="btn btn-secondary">Edit</button>
+      )}
+      <button onClick={() => setShowDeleteModal(true)} className="btn btn-danger">Delete</button>
+      {invoice.status === 'pending' && (
+        <button onClick={handleMarkAsPaid} className="btn btn-primary">Mark as Paid</button>
+      )}
+    </div>
+
+    {/* DELETE MODAL */}
+    <DeleteModal
+      isOpen={showDeleteModal}
+      invoiceId={invoice.id}
+      onConfirm={handleDelete}
+      onCancel={() => setShowDeleteModal(false)}
+    />
+
+    {/* EDIT FORM */}
+    <InvoiceForm
+      isOpen={isFormOpen}
+      onClose={() => setIsFormOpen(false)}
+      invoice={invoice}
+    />
+  </div>
+)
 }
