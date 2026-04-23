@@ -2,8 +2,8 @@
 
 A full-stack invoice management application built with React, TypeScript, and Node.js. Designed and developed as part of the HNG Internship Stage 2 task.
 
-**Live Demo:** [your-deployment-url]
-**GitHub:** [your-repo-url]
+**Live Demo:** [https://invoice-management-app-b5x5.vercel.app/]
+**GitHub:** [https://github.com/foidevans/invoice-management-app]
 
 ---
 
@@ -17,7 +17,7 @@ A full-stack invoice management application built with React, TypeScript, and No
 
 ```bash
 # Clone the repository
-git clone [your-repo-url]
+git clone [https://github.com/foidevans/invoice-management-app]
 cd invoice-management-app
 
 # Install dependencies
