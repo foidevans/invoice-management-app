@@ -22,7 +22,7 @@ export default function InvoiceCard({ invoice }: InvoiceCardProps) {
 
   return (
     <>
-      <div
+      {/* <div
         onClick={() => navigate(`/invoices/${invoice.id}`)}
         className="
           hidden lg:grid
@@ -34,7 +34,19 @@ export default function InvoiceCard({ invoice }: InvoiceCardProps) {
           transition-all duration-200
           shadow-[0px_10px_10px_-10px_rgba(72,84,159,0.1)]
         "
-      >
+      > */}
+
+      <div
+  onClick={() => navigate(`/invoices/${invoice.id}`)}
+  className="hidden lg:grid grid-cols-[100px_1fr_1fr_1fr_120px_20px] items-center gap-4 rounded-lg cursor-pointer border border-transparent hover:border-[var(--color-primary)] transition-all duration-200"
+  style={{
+    backgroundColor: 'var(--color-card)',
+    padding: '16px 32px',
+    height: '72px',
+    boxShadow: '0px 10px 10px -10px rgba(72,84,159,0.1)',
+    marginBottom: '16px',
+  }}
+>
         <span className="font-bold text-[0.9375rem] text-[var(--color-text-primary)]">
           <span className="text-[var(--color-text-muted)]">#</span>
           {invoice.id}
@@ -59,7 +71,7 @@ export default function InvoiceCard({ invoice }: InvoiceCardProps) {
         </svg>
       </div>
 
-      <div
+      {/* <div
         onClick={() => navigate(`/invoices/${invoice.id}`)}
         className="
           lg:hidden
@@ -69,7 +81,18 @@ export default function InvoiceCard({ invoice }: InvoiceCardProps) {
           transition-all duration-200
           shadow-[0px_10px_10px_-10px_rgba(72,84,159,0.1)]
         "
-      >
+      > */}
+
+      <div
+  onClick={() => navigate(`/invoices/${invoice.id}`)}
+  className="lg:hidden rounded-lg cursor-pointer border border-transparent hover:border-[var(--color-primary)] transition-all duration-200"
+  style={{
+    backgroundColor: 'var(--color-card)',
+    padding: '24px',
+    boxShadow: '0px 10px 10px -10px rgba(72,84,159,0.1)',
+    marginBottom: '16px',
+  }}
+>
         <div className="flex items-center justify-between mb-4">
           <span className="font-bold text-[0.9375rem] text-[var(--color-text-primary)]">
             <span className="text-[var(--color-text-muted)]">#</span>
