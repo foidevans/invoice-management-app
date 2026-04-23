@@ -1,12 +1,15 @@
 @import url('https://fonts.google.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
-@import "tailwindcss/preflight";
+@custom-variant dark (&:where(.dark, .dark *));
 
-@tailwind utilities;
 
 
 /* ─── LIGHT MODE TOKENS ─────────────────────────────────── */
 :root {
+
+  --sidebar-width: 0px;  
+   --topnav-height: 72px;
   /* Brand */
   --color-primary:        #7C5DFA;
   --color-primary-hover:  #9277FF;
@@ -146,6 +149,7 @@ body {
   box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.1);
 }
 
+
 .input {
   width: 100%;
   background-color: var(--color-input-bg);
@@ -155,7 +159,7 @@ body {
   font-family: 'League Spartan', sans-serif;
   font-size: 0.9375rem;
   font-weight: 700;
-  padding: 16px 20px;
+  padding: 12px 16px;  /* ← reduced from 16px 20px */
   outline: none;
   transition: border-color 0.2s ease;
 }
@@ -179,7 +183,7 @@ body {
   font-size: 0.9375rem;
   font-weight: 700;
   cursor: pointer;
-  padding: 16px 24px;
+  padding: 14px 18px;
   transition: background-color 0.2s ease, color 0.2s ease;
   white-space: nowrap;
 }
@@ -325,7 +329,11 @@ body {
 }
 
 /* ─── RESPONSIVE ────────────────────────────────────────── */
-
+@media (max-width: 1023px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+}
 @media (max-width: 768px) {
   :root {
     --sidebar-width: 0px;
@@ -347,5 +355,14 @@ body {
 @media (min-width: 768px) and (max-width: 1024px) {
   .main-content {
     padding: 56px 48px;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  :root {
+    --sidebar-width: 103px;
+    --topnav-height: 0px;
+
   }
 }
