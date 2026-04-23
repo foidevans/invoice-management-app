@@ -17,9 +17,12 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
     draft: 'Draft',
   }
 
-  return (
-    <div className={`flex items-center gap-2 px-4 py-2 rounded-md font-bold text-[0.9375rem] w-[104px] justify-center ${styles[status]}`}>
-      <span className={`w-2 h-2 rounded-full bg-current`} />
+    return (
+    <div
+      className={`flex items-center justify-center gap-2 font-bold text-[0.9375rem] rounded-md ${styles[status]}`}
+      style={{ width: '104px', height: '40px' }}
+    >
+      <span className="w-2 h-2 rounded-full bg-current" />
       {label[status]}
     </div>
   )
