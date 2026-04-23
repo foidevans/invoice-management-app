@@ -1,42 +1,42 @@
-import { useState, useMemo } from 'react'
-import { useInvoices } from '../context/InvoiceContext'
-import type { InvoiceStatus } from '../types/invoice'
-import InvoiceCard from '../components/invoice/InvoiceCard'
-import FilterDropdown from '../components/shared/FilterDropdown'
-import EmptyState from '../components/shared/EmptyState'
-import InvoiceForm from '../components/invoice/InvoiceForm'
+import { useState, useMemo } from "react";
+import { useInvoices } from "../context/InvoiceContext";
+import type { InvoiceStatus } from "../types/invoice";
+import InvoiceCard from "../components/invoice/InvoiceCard";
+import FilterDropdown from "../components/shared/FilterDropdown";
+import EmptyState from "../components/shared/EmptyState";
+import InvoiceForm from "../components/invoice/InvoiceForm";
 
 export default function InvoicesPage() {
-  const { invoices } = useInvoices()
-  const [selectedFilters, setSelectedFilters] = useState<InvoiceStatus[]>([])
-  const [isFormOpen, setIsFormOpen] = useState(false)
+  const { invoices } = useInvoices();
+  const [selectedFilters, setSelectedFilters] = useState<InvoiceStatus[]>([]);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const filteredInvoices = useMemo(() => {
-    if (selectedFilters.length === 0) return invoices
-    return invoices.filter(inv => selectedFilters.includes(inv.status))
-  }, [invoices, selectedFilters])
+    if (selectedFilters.length === 0) return invoices;
+    return invoices.filter((inv) => selectedFilters.includes(inv.status));
+  }, [invoices, selectedFilters]);
 
   const subtitle = useMemo(() => {
-    const count = filteredInvoices.length
+    const count = filteredInvoices.length;
 
-    if (count === 0) return 'No invoices'
+    if (count === 0) return "No invoices";
 
     if (selectedFilters.length === 1) {
-      return `There ${count === 1 ? 'is' : 'are'} ${count} ${selectedFilters[0]} ${count === 1 ? 'invoice' : 'invoices'}`
+      return `There ${count === 1 ? "is" : "are"} ${count} ${selectedFilters[0]} ${count === 1 ? "invoice" : "invoices"}`;
     }
 
-    return `There ${count === 1 ? 'is' : 'are'} ${count} total ${count === 1 ? 'invoice' : 'invoices'}`
-  }, [filteredInvoices, selectedFilters])
+    return `There ${count === 1 ? "is" : "are"} ${count} total ${count === 1 ? "invoice" : "invoices"}`;
+  }, [filteredInvoices, selectedFilters]);
 
   return (
     <div className="w-full max-w-[780px] mx-auto">
-      <div className="flex items-center justify-between mb-8 md:mb-14">
+      {/* Header */}
+      <div
+        className="flex items-center justify-between"
+        style={{ marginBottom: "60px" }}
+      >
         <div>
-          <h1 className="
-            font-bold text-[2rem] tracking-[-1px]
-            text-[var(--color-text-primary)]
-            leading-tight
-          ">
+          <h1 className="font-bold text-[2rem] tracking-[-1px] text-[var(--color-text-primary)] leading-tight">
             Invoices
           </h1>
           <p className="text-[0.8125rem] text-[var(--color-text-secondary)] mt-1">
@@ -50,20 +50,45 @@ export default function InvoicesPage() {
             onChange={setSelectedFilters}
           />
 
+          {/* New Invoice button */}
           <button
             onClick={() => setIsFormOpen(true)}
-            className="
-              flex items-center gap-2 md:gap-4
-              bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)]
-              text-white font-bold text-[0.9375rem]
-              rounded-[24px] transition-colors duration-200
-              pl-2 pr-4 py-2 md:pl-2 md:pr-6 md:py-2
-            "
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "16px",
+              backgroundColor: "var(--color-primary)",
+              borderRadius: "24px",
+              border: "none",
+              cursor: "pointer",
+              padding: "8px 16px 8px 8px",
+              color: "white",
+              fontFamily: "League Spartan, sans-serif",
+              fontWeight: 700,
+              fontSize: "0.9375rem",
+              whiteSpace: "nowrap",
+              transition: "background-color 0.2s ease",
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "var(--color-primary-hover)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "var(--color-primary)")
+            }
           >
-            <span className="
-              w-8 h-8 bg-white rounded-full
-              flex items-center justify-center flex-shrink-0
-            ">
+            <span
+              style={{
+                width: "32px",
+                height: "32px",
+                backgroundColor: "white",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
               <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
                 <path
                   d="M5.5 1v9M1 5.5h9"
@@ -82,17 +107,14 @@ export default function InvoicesPage() {
       {filteredInvoices.length === 0 ? (
         <EmptyState />
       ) : (
-        <div className="flex flex-col gap-4">
-          {filteredInvoices.map(invoice => (
+        <div className="flex flex-col ">
+          {filteredInvoices.map((invoice) => (
             <InvoiceCard key={invoice.id} invoice={invoice} />
           ))}
-        </div>   
+        </div>
       )}
 
-      <InvoiceForm
-  isOpen={isFormOpen}
-  onClose={() => setIsFormOpen(false)}
-/>
+      <InvoiceForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
     </div>
-  )
+  );
 }
